@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_NET.Data;
+using Proyecto_NET.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,16 @@ namespace Proyecto_NET.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            using (var ctx = new AdventureWorksLT2022())
+            {
+
+                var query = from p in ctx.Products
+                            orderby p.ProductID
+                            select p;
+
+                var resultados = query.ToList();
+                return View(resultados);
+            }
         }
 
         public ActionResult About()
