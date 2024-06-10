@@ -3,9 +3,6 @@ using Proyecto_NET.Data.Entities;
 using Proyecto_NET.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace Proyecto_NET.Service
 {

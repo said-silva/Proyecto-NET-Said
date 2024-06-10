@@ -1,9 +1,6 @@
-﻿using Proyecto_NET.Data;
-using Proyecto_NET.Data.Entities;
+﻿using Proyecto_NET.Data.Entities;
 using Proyecto_NET.Service;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Proyecto_NET.Controllers

@@ -1,14 +1,8 @@
-﻿using Newtonsoft.Json;
-using Proyecto_NET.Data;
-using Proyecto_NET.Data.Entities;
+﻿using Proyecto_NET.Data.Entities;
 using Proyecto_NET.Service;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Proyecto_NET.Controllers
 {
@@ -20,19 +14,19 @@ namespace Proyecto_NET.Controllers
             var productService = new ProductsService();
             List<Product> resp = productService.getProducts(filter);
 
-            //var customResponse = from cr in resp
-            //                     select new
-            //                     {
-            //                         cr.Name,
-            //                         cr.ProductID,
-            //                         cr.Color,
-            //                         cr.ListPrice,
-            //                         cr.ProductNumber,
-            //                     };
+            var customResponse = from cr in resp
+                                 select new
+                                 {
+                                     cr.Name,
+                                     cr.ProductID,
+                                     cr.Color,
+                                     cr.ListPrice,
+                                     cr.ProductNumber,
+                                 };
 
-            //return Ok(customResponse);
+            return Ok(customResponse);
 
-            return Ok(resp);
+            //return Ok(resp);
         }
 
         // GET api/<controller>/5

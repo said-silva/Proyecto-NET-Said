@@ -1,12 +1,8 @@
 ﻿using Proyecto_NET.Data;
 using Proyecto_NET.Data.Entities;
 using Proyecto_NET.Service;
-using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 
 using ExtensionMethods;
 namespace Proyecto_NET.Repositories
