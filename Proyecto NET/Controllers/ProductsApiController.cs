@@ -2,6 +2,7 @@
 using Proyecto_NET.Service;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Web.Http;
 
 namespace Proyecto_NET.Controllers
@@ -11,22 +12,29 @@ namespace Proyecto_NET.Controllers
         // GET api/<controller>
         public IHttpActionResult Get(string filter = null)
         {
-            var productService = new ProductsService();
-            List<Product> resp = productService.getProducts(filter);
+            try
+            {
+                var productService = new ProductsService();
+                List<Product> resp = productService.getProducts(filter);
 
-            var customResponse = from cr in resp
-                                 select new
-                                 {
-                                     cr.Name,
-                                     cr.ProductID,
-                                     cr.Color,
-                                     cr.ListPrice,
-                                     cr.ProductNumber,
-                                 };
+                var customResponse = from cr in resp
+                                     select new
+                                     {
+                                         cr.Name,
+                                         cr.ProductID,
+                                         cr.Color,
+                                         cr.ListPrice,
+                                         cr.ProductNumber,
+                                     };
 
-            return Ok(customResponse);
+                return Ok(customResponse);
 
-            //return Ok(resp);
+                //return Ok(resp);
+
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/<controller>/5

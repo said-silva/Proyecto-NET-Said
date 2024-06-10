@@ -43,11 +43,30 @@ namespace Proyecto_NET.Repositories
                 {
                     products = products.Where(p => p.Color.Equals(filter.color));
                 }
+                if (filter.priceFilter != null)
+                {
+                    switch (filter.priceFilter.operatorValue)
+                    {
+                        case "eq":
+                            products = products.Where(p => p.ListPrice == filter.priceFilter.value);
+                            break;
+                        case "gt":
+                            products = products.Where(p => p.ListPrice >= filter.priceFilter.value);
+                            break;
+                        case "lt":
+                            products = products.Where(p => p.ListPrice <= filter.priceFilter.value);
+                            break;
+                        default:
+                            throw new System.Exception("Couldn't recognize price filter operator");
+                    }
+                }
 
                 if (filter.orderBy != null)
                 {
                     products = products.OrderBy(filter.orderBy);
                 }
+                
+
 
                 return products.ToList();
 
