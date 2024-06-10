@@ -1,37 +1,35 @@
-﻿using Proyecto_NET.Data;
+﻿using Newtonsoft.Json;
+using Proyecto_NET.Data;
 using Proyecto_NET.Data.Entities;
+using Proyecto_NET.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace Proyecto_NET.Controllers
 {
     public class ProductsApiController : ApiController
     {
         // GET api/<controller>
-        //public IEnumerable<Product> Get()
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string filter = null)
         {
-            using (var ctx = new AdventureWorksLT2022())
-            {
+            var productService = new ProductsService();
+            var resp = productService.getProducts(filter);
 
-                var query = from p in ctx.Products
-                            orderby p.ProductID
-                            select new {
-                                p.ProductID,
-                                p.Name,
-                                p.ProductNumber,
-                                p.Color,
-                                p.StandardCost
-                            };
+            var customResponse = from cr in resp
+                                 select new
+                                 {
+                                     cr.Name,
+                                     cr.ProductID,
+                                     cr.Color,
+                                     cr.ListPrice,
+                                 };
 
-                var resultados = query.ToList();
-                return Ok(resultados);
-            }
-
+            return Ok(customResponse);
         }
 
         // GET api/<controller>/5

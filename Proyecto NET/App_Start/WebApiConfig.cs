@@ -26,6 +26,9 @@ namespace Proyecto_NET
             jsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            var jsonSetting = config.Formatters.JsonFormatter.SerializerSettings;
+            jsonSetting.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
     }
 }
