@@ -163,6 +163,7 @@
     <Compile Include="Data\Entities\ProductModelProductDescription.cs" />
     <Compile Include="Data\Entities\SalesOrderDetail.cs" />
     <Compile Include="Data\Entities\SalesOrderHeader.cs" />
+    <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Repositories\iProductRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Service\ProductsService.cs" />

@@ -18,18 +18,21 @@ namespace Proyecto_NET.Controllers
         public IHttpActionResult Get(string filter = null)
         {
             var productService = new ProductsService();
-            var resp = productService.getProducts(filter);
+            List<Product> resp = productService.getProducts(filter);
 
-            var customResponse = from cr in resp
-                                 select new
-                                 {
-                                     cr.Name,
-                                     cr.ProductID,
-                                     cr.Color,
-                                     cr.ListPrice,
-                                 };
+            //var customResponse = from cr in resp
+            //                     select new
+            //                     {
+            //                         cr.Name,
+            //                         cr.ProductID,
+            //                         cr.Color,
+            //                         cr.ListPrice,
+            //                         cr.ProductNumber,
+            //                     };
 
-            return Ok(customResponse);
+            //return Ok(customResponse);
+
+            return Ok(resp);
         }
 
         // GET api/<controller>/5

@@ -2,10 +2,13 @@
 using Proyecto_NET.Data.Entities;
 using Proyecto_NET.Service;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
+using ExtensionMethods;
 namespace Proyecto_NET.Repositories
 {
     public class ProductRepository : iProductRepository
@@ -27,19 +30,35 @@ namespace Proyecto_NET.Repositories
         {
             using (var ctx = new AdventureWorksLT2022())
             {
+                var products = ctx.Products.AsQueryable();
+                if (filter.productNumber != null)
+                {
+                    products = products.Where(p => p.ProductID.Equals(filter.productId));
+                }
+                if (filter.name != null)
+                {
+                    products = products.Where(p => p.Name.Equals(filter.name));
+                }
+                if (filter.productNumber != null)
+                {
+                    products = products.Where(p => p.ProductNumber.Equals(filter.productNumber));
+                }
+                if (filter.color != null)
+                {
+                    products = products.Where(p => p.Color.Equals(filter.color));
+                }
 
-                var query = from p in ctx.Products
-                            where p.Color.Equals(filter.color)
-                            orderby filter.orderBy
-                            select p;
+                if (filter.orderBy != null)
+                {
+                    products = products.OrderBy(filter.orderBy);
+                }
 
-                var resultados = query.ToList();
-                return resultados;
+                return products.ToList();
 
-                //IQueryable<Product> products = query;
-                //var productsOver25 = products.Where(p => p.ListPrice >= 25);
             }
 
         }
+
+        
     }
 }

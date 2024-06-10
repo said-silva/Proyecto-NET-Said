@@ -12,6 +12,7 @@ namespace Proyecto_NET.Data
         public AdventureWorksLT2022()
             : base("name=AdventureWorksLT2022")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
