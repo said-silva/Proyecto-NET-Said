@@ -23,9 +23,7 @@ namespace Proyecto_NET.Service
             }
             catch (JsonReaderException e) {
                 throw new Exception("Couldn't deserialize params");
-            }
-
-            ;
+            };
         }
     }
 
