@@ -1,12 +1,6 @@
 ﻿using Proyecto_NET.Data.Entities;
 using System.Collections.Generic;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Proyecto_NET.Service;
+using Proyecto_NET.Utilities;
 
 namespace Proyecto_NET.Repositories
 {

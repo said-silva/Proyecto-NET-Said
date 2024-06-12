@@ -9,14 +9,22 @@ namespace Proyecto_NET.Controllers
 {
     public class ProductsApiController : ApiController
     {
+        private readonly ProductsService _productService;
+        public ProductsApiController() {
+            _productService = new ProductsService();
+        }
+
         // GET api/<controller>
         public IHttpActionResult Get(string filter = null)
         {
             try
             {
-                var productService = new ProductsService();
-                List<Product> resp = productService.getProducts(filter);
+                List<Product> resp = _productService.getProducts(filter);
 
+                // If you need all the attributes return after fetching the data
+                //return Ok(resp);
+
+                // If you want to use a custome version of the object with the most important attributes only
                 var customResponse = from cr in resp
                                      select new
                                      {
@@ -29,7 +37,6 @@ namespace Proyecto_NET.Controllers
 
                 return Ok(customResponse);
 
-                //return Ok(resp);
 
             } catch (Exception ex)
             {

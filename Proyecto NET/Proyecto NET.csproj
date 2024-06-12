@@ -168,6 +168,8 @@
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Service\ProductsService.cs" />
     <Compile Include="Service\iProductsService.cs" />
+    <Compile Include="Utilities\PriceFilter.cs" />
+    <Compile Include="Utilities\QueryFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
