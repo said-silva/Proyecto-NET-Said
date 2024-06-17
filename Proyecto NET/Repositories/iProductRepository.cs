@@ -1,6 +1,7 @@
 ﻿using Proyecto_NET.Data.Entities;
 using System.Collections.Generic;
-using Proyecto_NET.Utilities;
+using System.Linq.Expressions;
+using System;
 
 namespace Proyecto_NET.Repositories
 {
@@ -8,7 +9,7 @@ namespace Proyecto_NET.Repositories
     {
         List<Product> getProducts();
 
-        List<Product> getFilteredProducts(QueryFilter filter);
+        List<Product> getFilteredProducts(Expression<Func<Product, bool>> filter, string orderBy);
 
         bool deleteProduct(int id);
 

@@ -1,14 +1,10 @@
-﻿using Proyecto_NET.Data;
+﻿using ExtensionMethods;
+using Proyecto_NET.Data;
 using Proyecto_NET.Data.Entities;
-using Proyecto_NET.Service;
-using System.Collections.Generic;
-using System.Linq;
 using System;
-using ExtensionMethods;
-using Proyecto_NET.Utilities;
-using System.EnterpriseServices;
-using System.Web.UI.WebControls.WebParts;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Linq;
 using System.Linq.Expressions;
 namespace Proyecto_NET.Repositories
 {
@@ -34,12 +30,10 @@ namespace Proyecto_NET.Repositories
 
         public List<Product> getFilteredProducts(Expression<Func<Product, bool>> filter, string orderBy)
         {
-
             var products = _dbContext.Products;
             var query = products.Where(filter).OrderBy(orderBy);
 
             return query.ToList();
-
         }
 
         

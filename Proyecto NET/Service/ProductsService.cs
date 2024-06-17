@@ -6,11 +6,8 @@ using Proyecto_NET.Repositories;
 using Proyecto_NET.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
 namespace Proyecto_NET.Service
@@ -43,7 +40,7 @@ namespace Proyecto_NET.Service
 
                     var expression = CreateExpressionFilter(filterDictionary);
 
-                    products = _productRepository.getFill(expression, filterObj.orderBy);
+                    products = _productRepository.getFilteredProducts(expression, filterObj.orderBy);
                 }
 
                 var productsDTO = from p in products.ToList()
@@ -99,17 +96,11 @@ namespace Proyecto_NET.Service
 
                 Expression expression;
 
-                if(pair.Key.Equals("productId"))
-                {
-                    var productIdConverted = Convert.ToInt32(pair.Value); 
-                    constant = Expression.Constant(productIdConverted);
-                    expression = Expression.Equal(member, constant);
+                if (pair.Value is JObject) {
+                    var amountFilterObj = JsonConvert.DeserializeObject<PriceFilter>(pair.Value.ToString());
 
-                } else if (pair.Key.Equals("listPrice")) {
-                    var amountObj = JsonConvert.DeserializeObject<PriceFilter>(pair.Value.ToString());
-
-                    constant = Expression.Constant(amountObj.value);
-                    switch (amountObj.operatorValue)
+                    constant = Expression.Constant(amountFilterObj.value);
+                    switch (amountFilterObj.operatorValue)
                     {
                         case "eq":
                             expression = Expression.Equal(member, constant);
@@ -127,7 +118,8 @@ namespace Proyecto_NET.Service
                 }
                 else
                 {
-                    constant = Expression.Constant(pair.Value);
+                    var constantValue = pair.Value is long ? Convert.ToInt32(pair.Value) : pair.Value;
+                    constant = Expression.Constant(constantValue);
                     expression = Expression.Equal(member, constant);
                 }
 
