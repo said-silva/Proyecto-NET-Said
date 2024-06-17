@@ -3,10 +3,13 @@ using Proyecto_NET.Data.Entities;
 using Proyecto_NET.Service;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 using ExtensionMethods;
 using Proyecto_NET.Utilities;
 using System.EnterpriseServices;
+using System.Web.UI.WebControls.WebParts;
+using System.Data.Entity.Migrations;
+using System.Linq.Expressions;
 namespace Proyecto_NET.Repositories
 {
     public class ProductRepository : iProductRepository
@@ -19,6 +22,8 @@ namespace Proyecto_NET.Repositories
         {
       
             var query = from p in _dbContext.Products
+                        // Logic delete clause
+                        where p.DiscontinuedDate == null
                         orderby p.ProductID
                         select p;
 
@@ -26,55 +31,70 @@ namespace Proyecto_NET.Repositories
             return resultados;
 
         }
-        public List<Product> getFilteredProducts(QueryFilter filter)
+
+        public List<Product> getFilteredProducts(Expression<Func<Product, bool>> filter, string orderBy)
         {
-            var products = _dbContext.Products.AsQueryable();
-            if (filter.productId != null)
-            {
-                products = products.Where(p => p.ProductID.Equals(filter.productId));
-            }
-            if (filter.name != null)
-            {
-                products = products.Where(p => p.Name.Equals(filter.name));
-            }
-            if (filter.productNumber != null)
-            {
-                products = products.Where(p => p.ProductNumber.Equals(filter.productNumber));
-            }
-            if (filter.color != null)
-            {
-                products = products.Where(p => p.Color.Equals(filter.color));
-            }
-            if (filter.priceFilter != null)
-            {
-                switch (filter.priceFilter.operatorValue)
-                {
-                    case "eq":
-                        products = products.Where(p => p.ListPrice == filter.priceFilter.value);
-                        break;
-                    case "gt":
-                        products = products.Where(p => p.ListPrice >= filter.priceFilter.value);
-                        break;
-                    case "lt":
-                        products = products.Where(p => p.ListPrice <= filter.priceFilter.value);
-                        break;
-                    default:
-                        throw new System.Exception("Couldn't recognize price filter operator");
-                }
-            }
 
-            if (filter.orderBy != null)
-            {
-                products = products.OrderBy(filter.orderBy);
-            }
-                
+            var products = _dbContext.Products;
+            var query = products.Where(filter).OrderBy(orderBy);
 
-
-            return products.ToList();
-
+            return query.ToList();
 
         }
 
         
+
+        public bool deleteProduct(int id)
+        {
+            try
+            {
+                var productToRemove = _dbContext.Products.SingleOrDefault(p => p.ProductID == id);
+
+                if (productToRemove != null)
+                {
+                    productToRemove.DiscontinuedDate = DateTime.Now;
+                    _dbContext.Products.AddOrUpdate(productToRemove);
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el producto");
+            }
+            
+            
+        }
+
+        public Product addProduct (Product product)
+        {
+            Product productAdded = _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
+            return productAdded;
+        }
+
+        public Product updateProduct(Product product) {
+            _dbContext.Products.AddOrUpdate(product);
+            _dbContext.SaveChanges();
+            return product;
+        }
+
+        public Product updateProductFields(int id, Product product) {
+            Product productToUpdate = _dbContext.Products.SingleOrDefault(p => p.ProductID == id);
+
+            productToUpdate.Name = product.Name;
+            productToUpdate.Color = product.Color;
+            productToUpdate.Size = product.Size;
+            productToUpdate.ListPrice = product.ListPrice;
+            productToUpdate.Weight = product.Weight;
+
+            _dbContext.Products.AddOrUpdate(productToUpdate);
+            _dbContext.SaveChanges();
+
+            return product;
+        }
+
+
     }
 }

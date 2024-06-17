@@ -1,4 +1,5 @@
 ﻿using Proyecto_NET.Data.Entities;
+using Proyecto_NET.Domain.DTOs;
 using Proyecto_NET.Service;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -10,8 +11,9 @@ namespace Proyecto_NET.Controllers
         public ActionResult Index()
         {
             var productService = new ProductsService();
-            List<Product> resultados = productService.getProducts(null);
-            return View(resultados);
+            //List<ProductDTO> resultados = productService.getProducts(null);
+            //return View(resultados);
+            return View();
         }
 
         public ActionResult About()

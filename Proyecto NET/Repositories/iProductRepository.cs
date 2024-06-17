@@ -10,5 +10,12 @@ namespace Proyecto_NET.Repositories
 
         List<Product> getFilteredProducts(QueryFilter filter);
 
+        bool deleteProduct(int id);
+
+        Product addProduct(Product product);
+
+        Product updateProduct(Product product);
+
+        Product updateProductFields(int id, Product product);
     }
 }

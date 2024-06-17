@@ -8,11 +8,12 @@ namespace ExtensionMethods
 {
     public static class ExtensionMethods
     {
-        public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty)
+        public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty = null)
         {
 
+
             var type = typeof(TEntity);
-            var property = type.GetProperty(orderByProperty);
+            var property = type.GetProperty(orderByProperty == null ? "Name": orderByProperty);
             var parameter = Expression.Parameter(type, "p");
             var propertyAccess = Expression.MakeMemberAccess(parameter, property);
             var orderByExpression = Expression.Lambda(propertyAccess, parameter);
