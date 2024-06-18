@@ -38,7 +38,7 @@ namespace Proyecto_NET.Service
                     var filterDictionary = jsonObject.ToObject<Dictionary<string, object>>();
                     filterDictionary.Remove("orderBy");
 
-                    var expression = CreateExpressionFilter(filterDictionary);
+                    var expression = createExpressionFilter(filterDictionary);
 
                     products = _productRepository.getFilteredProducts(expression, filterObj.orderBy);
                 }
@@ -83,7 +83,7 @@ namespace Proyecto_NET.Service
         }
 
 
-        public static Expression<Func<Product, bool>> CreateExpressionFilter(IDictionary<string, object> filters)
+        public static Expression<Func<Product, bool>> createExpressionFilter(IDictionary<string, object> filters)
         {
             var param = Expression.Parameter(typeof(Product), "p");
             Expression body = null;
@@ -112,7 +112,7 @@ namespace Proyecto_NET.Service
                             expression = Expression.LessThan(member, constant);
                             break;
                         default:
-                            throw new System.Exception("Couldn't recognize price filter operator");
+                            throw new Exception("Couldn't recognize price filter operator");
                     }
 
                 }
