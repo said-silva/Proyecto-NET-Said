@@ -23,8 +23,7 @@ namespace Proyecto_NET.Repositories
                         orderby p.ProductID
                         select p;
 
-            var resultados = query.ToList();
-            return resultados;
+            return query.ToList();
 
         }
 

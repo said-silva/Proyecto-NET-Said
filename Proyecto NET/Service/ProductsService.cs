@@ -43,7 +43,7 @@ namespace Proyecto_NET.Service
                     products = _productRepository.getFilteredProducts(expression, filterObj.orderBy);
                 }
 
-                var productsDTO = from p in products.ToList()
+                var productsDTO = from p in products
                                                select new ProductDTO(){
                                                    name = p.Name,
                                                    productID = p.ProductID,
