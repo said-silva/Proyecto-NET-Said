@@ -25,12 +25,9 @@ namespace Proyecto_NET.Controllers
                 List<ProductDTO> resp = _productService.getProducts(filter);
 
                 return Ok(resp);
-
-
-
             } catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return InternalServerError(ex);
             }
         }
 
@@ -62,15 +59,28 @@ namespace Proyecto_NET.Controllers
         // Update using only some fields (To be determined by the UI)
         public IHttpActionResult Put(int id, Product product)
         {
+            try { 
+                return Ok(_productService.updateFields(id, product));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
 
-            return Ok(_productService.updateFields(id, product));
         }
 
         // Update using all the object
         public IHttpActionResult Patch(Product product)
         {
+            try
+            {
+                return Ok(_productService.updateProduct(product));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
 
-            return Ok(_productService.updateProduct(product));
+            }
         }
 
         // DELETE api/<controller>/5
@@ -81,7 +91,7 @@ namespace Proyecto_NET.Controllers
                 bool resp = _productService.deleteProduct(id);
                 if (resp)
                     return Ok();
-                else return BadRequest("El recurso especificado no existe");
+                else return BadRequest("Couldn't find specified resource");
             } catch (Exception ex)
             {
                 return InternalServerError(ex);
