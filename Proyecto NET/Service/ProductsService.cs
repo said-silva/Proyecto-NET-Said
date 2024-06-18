@@ -67,18 +67,14 @@ namespace Proyecto_NET.Service
 
         public Product addProduct(Product product)
         {
-            product.ModifiedDate = DateTime.Now;
-            product.rowguid = Guid.NewGuid();
             return _productRepository.addProduct(product);
         }
 
         public Product updateProduct(Product product) {
-            product.ModifiedDate = DateTime.Now;
             return _productRepository.updateProduct(product);
         }
 
         public Product updateFields(int id, Product product) { 
-            product.ModifiedDate = DateTime.Now;
             return _productRepository.updateProductFields(id, product);
         }
 

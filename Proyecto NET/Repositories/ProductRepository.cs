@@ -62,12 +62,15 @@ namespace Proyecto_NET.Repositories
 
         public Product addProduct (Product product)
         {
+            product.ModifiedDate = DateTime.Now;
+            product.rowguid = Guid.NewGuid();
             Product productAdded = _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
             return productAdded;
         }
 
         public Product updateProduct(Product product) {
+            product.ModifiedDate = DateTime.Now;
             _dbContext.Products.AddOrUpdate(product);
             _dbContext.SaveChanges();
             return product;
@@ -81,6 +84,7 @@ namespace Proyecto_NET.Repositories
             productToUpdate.Size = product.Size;
             productToUpdate.ListPrice = product.ListPrice;
             productToUpdate.Weight = product.Weight;
+            product.ModifiedDate = DateTime.Now;
 
             _dbContext.Products.AddOrUpdate(productToUpdate);
             _dbContext.SaveChanges();
