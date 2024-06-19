@@ -6,6 +6,7 @@ using System;
 using System.Web.Http;
 using Proyecto_NET.Utilities;
 using Proyecto_NET.Domain.DTOs;
+using Newtonsoft.Json.Linq;
 
 namespace Proyecto_NET.Controllers
 {
@@ -22,7 +23,20 @@ namespace Proyecto_NET.Controllers
         {
             try
             {
-                List<ProductDTO> resp = _productService.getProducts(filter);
+                IDictionary<string, object> filterDictionary = null;
+
+                string orderByColumn = null;
+
+                if (filter != null)
+                {
+                    var jsonObject = JObject.Parse(filter);
+                    filterDictionary = jsonObject.ToObject<Dictionary<string, object>>();
+                    orderByColumn = filterDictionary["orderBy"].ToString();
+                    filterDictionary.Remove("orderBy");
+                }
+
+
+                List<ProductDTO> resp = _productService.getProducts(filterDictionary, orderByColumn);
 
                 return Ok(resp);
             } catch (Exception ex)
@@ -58,8 +72,11 @@ namespace Proyecto_NET.Controllers
         // Update using only some fields (To be determined by the UI)
         public IHttpActionResult Put(int id, Product product)
         {
-            try { 
-                return Ok(_productService.updateFields(id, product));
+            try {
+                var response = _productService.updateFields(id, product);
+                if (response is null)
+                    return BadRequest("Couldn't find specified ID");
+                return Ok(response);
             }
             catch (Exception ex)
             {

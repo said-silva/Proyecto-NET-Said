@@ -68,28 +68,25 @@ namespace Proyecto_NET.Repositories
             _dbContext.SaveChanges();
             return productAdded;
         }
-
-        //public Product updateProduct(Product product) {
-        //    product.ModifiedDate = DateTime.Now;
-        //    _dbContext.Products.AddOrUpdate(product);
-        //    _dbContext.SaveChanges();
-        //    return product;
-        //}
-
         public Product updateProductFields(int id, Product product) {
             Product productToUpdate = _dbContext.Products.SingleOrDefault(p => p.ProductID == id);
 
-            productToUpdate.Name = product.Name;
-            productToUpdate.Color = product.Color;
-            productToUpdate.Size = product.Size;
-            productToUpdate.ListPrice = product.ListPrice;
-            productToUpdate.Weight = product.Weight;
-            productToUpdate.ModifiedDate = DateTime.Now;
+            if (productToUpdate != null)
+            {
+                productToUpdate.Name = product.Name;
+                productToUpdate.Color = product.Color;
+                productToUpdate.Size = product.Size;
+                productToUpdate.ListPrice = product.ListPrice;
+                productToUpdate.Weight = product.Weight;
+                productToUpdate.ModifiedDate = DateTime.Now;
 
-            _dbContext.Products.AddOrUpdate(productToUpdate);
-            _dbContext.SaveChanges();
+                _dbContext.Products.AddOrUpdate(productToUpdate);
+                _dbContext.SaveChanges();
 
-            return productToUpdate;
+                return productToUpdate;
+            }
+            return null;
+
         }
 
 

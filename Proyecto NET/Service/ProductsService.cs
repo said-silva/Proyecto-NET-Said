@@ -21,26 +21,21 @@ namespace Proyecto_NET.Service
             _productRepository = new ProductRepository();
         }
 
-        public List<ProductDTO> getProducts(string filter)
+        public List<ProductDTO> getProducts(IDictionary<string, object> filter, string orderByColumn)
         {
             List<Product> products = new List<Product>();
             try
             {
-                if (filter == null)
+                if (filter is null)
                 {
                      products = _productRepository.getProducts();
                 }
                 else
                 {
 
-                    var filterObj = JsonConvert.DeserializeObject<QueryFilter>(filter);
-                    var jsonObject = JObject.Parse(filter);
-                    var filterDictionary = jsonObject.ToObject<Dictionary<string, object>>();
-                    filterDictionary.Remove("orderBy");
+                    var expression = createExpressionFilter(filter);
 
-                    var expression = createExpressionFilter(filterDictionary);
-
-                    products = _productRepository.getFilteredProducts(expression, filterObj.orderBy);
+                    products = _productRepository.getFilteredProducts(expression, orderByColumn);
                 }
 
                 var productsDTO = from p in products

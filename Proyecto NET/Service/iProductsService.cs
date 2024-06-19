@@ -6,7 +6,7 @@ namespace Proyecto_NET.Service
 {
     internal interface iProductsService
     {
-        List<ProductDTO> getProducts(string filter);
+        List<ProductDTO> getProducts(IDictionary<string, object> filter, string orderByColumn);
 
         bool deleteProduct(int id);
 
