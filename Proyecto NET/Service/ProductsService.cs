@@ -70,9 +70,6 @@ namespace Proyecto_NET.Service
             return _productRepository.addProduct(product);
         }
 
-        public Product updateProduct(Product product) {
-            return _productRepository.updateProduct(product);
-        }
 
         public Product updateFields(int id, Product product) { 
             return _productRepository.updateProductFields(id, product);

@@ -15,8 +15,6 @@ namespace Proyecto_NET.Repositories
 
         Product addProduct(Product product);
 
-        Product updateProduct(Product product);
-
         Product updateProductFields(int id, Product product);
     }
 }

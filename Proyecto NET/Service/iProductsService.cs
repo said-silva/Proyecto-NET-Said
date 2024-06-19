@@ -12,8 +12,6 @@ namespace Proyecto_NET.Service
 
         Product addProduct(Product product);
 
-        Product updateProduct(Product product);
-
         Product updateFields(int id, Product product);
 
     }

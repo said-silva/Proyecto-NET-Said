@@ -55,7 +55,6 @@ namespace Proyecto_NET.Controllers
         }
 
         // PUT api/<controller>/5
-        //public void Put(int id, [FromBody] string value)
         // Update using only some fields (To be determined by the UI)
         public IHttpActionResult Put(int id, Product product)
         {
@@ -67,20 +66,6 @@ namespace Proyecto_NET.Controllers
                 return InternalServerError(ex);
             }
 
-        }
-
-        // Update using all the object
-        public IHttpActionResult Patch(Product product)
-        {
-            try
-            {
-                return Ok(_productService.updateProduct(product));
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-
-            }
         }
 
         // DELETE api/<controller>/5

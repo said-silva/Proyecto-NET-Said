@@ -54,7 +54,7 @@ namespace Proyecto_NET.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al eliminar el producto");
+                throw new Exception("Problem while deleting product");
             }
             
             
@@ -69,12 +69,12 @@ namespace Proyecto_NET.Repositories
             return productAdded;
         }
 
-        public Product updateProduct(Product product) {
-            product.ModifiedDate = DateTime.Now;
-            _dbContext.Products.AddOrUpdate(product);
-            _dbContext.SaveChanges();
-            return product;
-        }
+        //public Product updateProduct(Product product) {
+        //    product.ModifiedDate = DateTime.Now;
+        //    _dbContext.Products.AddOrUpdate(product);
+        //    _dbContext.SaveChanges();
+        //    return product;
+        //}
 
         public Product updateProductFields(int id, Product product) {
             Product productToUpdate = _dbContext.Products.SingleOrDefault(p => p.ProductID == id);
@@ -84,12 +84,12 @@ namespace Proyecto_NET.Repositories
             productToUpdate.Size = product.Size;
             productToUpdate.ListPrice = product.ListPrice;
             productToUpdate.Weight = product.Weight;
-            product.ModifiedDate = DateTime.Now;
+            productToUpdate.ModifiedDate = DateTime.Now;
 
             _dbContext.Products.AddOrUpdate(productToUpdate);
             _dbContext.SaveChanges();
 
-            return product;
+            return productToUpdate;
         }
 
 
