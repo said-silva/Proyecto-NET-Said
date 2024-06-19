@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Proyecto_NET.Service
 {
-    internal interface iProductsService
+    public interface iProductsService
     {
         List<ProductDTO> getProducts(string filter);
 

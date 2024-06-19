@@ -6,15 +6,19 @@ using System;
 using System.Web.Http;
 using Proyecto_NET.Utilities;
 using Proyecto_NET.Domain.DTOs;
+using Autofac.Integration.WebApi;
+
 
 namespace Proyecto_NET.Controllers
 {
 
     public class ProductsApiController : ApiController
     {
-        private readonly ProductsService _productService;
-        public ProductsApiController() {
-            _productService = new ProductsService();
+        //private readonly ProductsService _productService;
+        private readonly iProductsService _productService;
+        public ProductsApiController(iProductsService productsService) {
+            //_productService = new ProductsService();
+            _productService = productsService;
         }
 
         // GET api/<controller>
