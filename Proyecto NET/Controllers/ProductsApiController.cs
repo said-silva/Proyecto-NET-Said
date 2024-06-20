@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Web.Http;
+using Proyecto_NET.Utilities;
+using Proyecto_NET.Domain.DTOs;
+using Newtonsoft.Json.Linq;
 
 namespace Proyecto_NET.Controllers
 {
+
     public class ProductsApiController : ApiController
     {
         private readonly ProductsService _productService;
@@ -19,28 +23,25 @@ namespace Proyecto_NET.Controllers
         {
             try
             {
-                List<Product> resp = _productService.getProducts(filter);
+                IDictionary<string, object> filterDictionary = null;
 
-                // If you need all the attributes return after fetching the data
-                //return Ok(resp);
+                string orderByColumn = null;
 
-                // If you want to use a custome version of the object with the most important attributes only
-                var customResponse = from cr in resp
-                                     select new
-                                     {
-                                         cr.Name,
-                                         cr.ProductID,
-                                         cr.Color,
-                                         cr.ListPrice,
-                                         cr.ProductNumber,
-                                     };
-
-                return Ok(customResponse);
+                if (filter != null)
+                {
+                    var jsonObject = JObject.Parse(filter);
+                    filterDictionary = jsonObject.ToObject<Dictionary<string, object>>();
+                    orderByColumn = filterDictionary["orderBy"].ToString();
+                    filterDictionary.Remove("orderBy");
+                }
 
 
+                List<ProductDTO> resp = _productService.getProducts(filterDictionary, orderByColumn);
+
+                return Ok(resp);
             } catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return InternalServerError(ex);
             }
         }
 
@@ -51,18 +52,52 @@ namespace Proyecto_NET.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody] string value)
+        [HttpPost]
+        public IHttpActionResult Post(Product product)
         {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Check the body for errors");
+                }
+                return Ok(_productService.addProduct(product));
+            }
+            catch (Exception ex) {
+                return InternalServerError(ex);
+            }   
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
+        // Update using only some fields (To be determined by the UI)
+        public IHttpActionResult Put(int id, Product product)
         {
+            try {
+                var response = _productService.updateFields(id, product);
+                if (response is null)
+                    return BadRequest("Couldn't find specified ID");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            try
+            {
+                bool resp = _productService.deleteProduct(id);
+                if (resp)
+                    return Ok();
+                else return BadRequest("Couldn't find specified resource");
+            } catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }
