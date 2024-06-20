@@ -10,7 +10,6 @@ namespace Proyecto_NET.Controllers
     {
         public ActionResult Index()
         {
-            var productService = new ProductsService();
             return View();
         }
 

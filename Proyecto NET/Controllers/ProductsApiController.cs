@@ -13,9 +13,9 @@ namespace Proyecto_NET.Controllers
 
     public class ProductsApiController : ApiController
     {
-        private readonly ProductsService _productService;
-        public ProductsApiController() {
-            _productService = new ProductsService();
+        private readonly iProductsService _productService;
+        public ProductsApiController(iProductsService productsService) {
+            _productService = productsService;
         }
 
         // GET api/<controller>
