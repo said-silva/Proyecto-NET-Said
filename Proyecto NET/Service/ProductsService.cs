@@ -15,10 +15,10 @@ namespace Proyecto_NET.Service
     public class ProductsService : iProductsService
     {
         
-        private readonly ProductRepository _productRepository;
+        private readonly iProductRepository _productRepository;
 
-        public ProductsService() {
-            _productRepository = new ProductRepository();
+        public ProductsService(iProductRepository productRepository) {
+            _productRepository = productRepository;
         }
 
         public List<ProductDTO> getProducts(string filter)

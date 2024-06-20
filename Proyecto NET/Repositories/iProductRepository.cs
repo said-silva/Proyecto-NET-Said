@@ -5,7 +5,7 @@ using System;
 
 namespace Proyecto_NET.Repositories
 {
-    internal interface iProductRepository
+    public interface iProductRepository
     {
         List<Product> getProducts();
 

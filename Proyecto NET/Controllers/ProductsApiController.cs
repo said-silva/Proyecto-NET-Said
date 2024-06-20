@@ -14,10 +14,8 @@ namespace Proyecto_NET.Controllers
 
     public class ProductsApiController : ApiController
     {
-        //private readonly ProductsService _productService;
         private readonly iProductsService _productService;
         public ProductsApiController(iProductsService productsService) {
-            //_productService = new ProductsService();
             _productService = productsService;
         }
 
@@ -62,8 +60,12 @@ namespace Proyecto_NET.Controllers
         // Update using only some fields (To be determined by the UI)
         public IHttpActionResult Put(int id, Product product)
         {
-            try { 
-                return Ok(_productService.updateFields(id, product));
+            try
+            {
+                var response = _productService.updateFields(id, product);
+                if (response is null)
+                    return BadRequest("Couldn't find specified ID");
+                return Ok(response);
             }
             catch (Exception ex)
             {

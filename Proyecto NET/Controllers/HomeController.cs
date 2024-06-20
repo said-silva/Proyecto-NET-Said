@@ -10,9 +10,6 @@ namespace Proyecto_NET.Controllers
     {
         public ActionResult Index()
         {
-            var productService = new ProductsService();
-            //List<ProductDTO> resultados = productService.getProducts(null);
-            //return View(resultados);
             return View();
         }
 
