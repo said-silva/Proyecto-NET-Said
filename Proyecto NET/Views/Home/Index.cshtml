@@ -1,30 +1,175 @@
 ﻿@*@model IEnumerable<Proyecto_NET.Data.Entities.Product>*@
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Products";
 }
 
 <main>
-    @*<section class="row" aria-labelledby="aspnetTitle">
-        <h2>Lista de Productos</h2><table>
-            <thead> 
-                <tr> 
-                    <th>Nombre</th> 
-                    <th>ID</th> 
-                </tr> 
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr> 
-                        <td>@item.Name</td> 
-                        <td>@item.ProductID</td>   
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </section>*@
+    <button class="button button-confirm">Add Product</button>
+    <div class="container">
+        <form>
+            <div class="row">
+                <h4 id="form-title">Product</h4>
+                <div class="col-half"></div>
+                <div class="col-half">
+                    <div class="input-group input-group-icon">
+                        <input type="text" placeholder="Name" />
+                        <div class="input-icon"><i class="fa fa-book"></i></div>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input type="text" placeholder="Product Number" />
+                        <div class="input-icon"><i class="fa fa-product-hunt"></i></div>
+                    </div>
+                    <h4>Color</h4>
+                    <div class="input-group">
+                        <select>
+                            <option>Black</option>
+                            <option>White</option>
+                            <option>Brown</option>
+                            <option>Pink</option>
+                            <option>Red</option>
+                        </select>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input type="number" placeholder="Standar Cost" />
+                        <div class="input-icon"><i class="fa fa-money"></i></div>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input type="number" placeholder="List Price" />
+                        <div class="input-icon"><i class="fa fa-money"></i></div>
+                    </div>
+                    <h4>Size</h4>
+                    <div class="size-container">
+                        <label class="container-checkbox">
+                            S
+                            <input type="radio" checked="checked" name="size">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container-checkbox">
+                            M
+                            <input type="radio" name="size">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container-checkbox">
+                            G
+                            <input type="radio" name="size">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container-checkbox">
+                            XL
+                            <input type="radio" name="size">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input type="number" placeholder="Weight" />
+                        <div class="input-icon"><i class="fa fa-superpowers"></i></div>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input type="text" placeholder="Product Category ID" />
+                        <div class="input-icon"><i class="fa fa-product-hunt"></i></div>
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input type="text" placeholder="Product Model ID" />
+                        <div class="input-icon"><i class="fa fa-product-hunt"></i></div>
+                    </div>
+                    <h4>Sell Start Date</h4>
+                    <div class="input-group input-group-icon">
+                        <input type="date">
+                        <div class="input-icon"><i class="fa fa-calendar-o"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center-buttons">
+                    <button class="button button-confirm">Confirm</button>
+                    <button class="button button-clear">Clear</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-    <div class="row">
+    <div id="title">
+        <h2>Our Products</h2>
+    </div>
+    <div class="product-grid">
+        <div class="product" id="product1">
+            <h4>Producto 1</h4>
+            <img src="~/Static/Images/example-product.png" alt="Product Image" class="product-image">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s.
+            </p>
+            <button>Editar</button>
+        </div>
 
+        <div class="product" id="product2">
+            <h4>Producto 2</h4>
+            <img src="~/Static/Images/example-product.png" alt="Product Image" class="product-image">
+
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s.
+            </p>
+            <button>Editar</button>
+        </div>
+
+
+        <div class="product" id="product3">
+            <h4>Producto 3</h4>
+            <img src="~/Static/Images/example-product.png" alt="Product Image" class="product-image">
+
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s.
+            </p>
+            <button>Editar</button>
+        </div>
+
+        <div class="product" id="product4">
+            <h4>Producto 4</h4>
+            <img src="~/Static/Images/example-product.png" alt="Product Image" class="product-image">
+
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s.
+            </p>
+            <button>Editar</button>
+        </div>
+    </div>
+    <div class="center-div">
+        <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a class="active" href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+        </div>
+    </div>
+
+    <div class="product-details">
+        <h2>Product Name</h2>
+        <img src="/Static/Images/example-product.png" alt="Product Image" class="product-image-details">
+        <h4>Detalles</h4>
+        <p class="description">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever
+            since the 1500s.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever
+            since the 1500s.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever
+            since the 1500s.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever
+            since the 1500s.
+        </p>
     </div>
 </main>

@@ -24,7 +24,13 @@ namespace Proyecto_NET
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/navbar.css"));
+            bundles.Add(new StyleBundle("~/Styles/css").Include(
+                      "~/Styles/navbar.css",
+                      "~/Styles/index.css",
+                      "~/Styles/addProducts.css",
+                      "~/Styles/productDetails.css"));
         }
     }
 }

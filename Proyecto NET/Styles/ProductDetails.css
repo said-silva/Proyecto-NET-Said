@@ -1,0 +1,16 @@
+.product-details {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 20px;
+}
+
+.product-image-details {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 250px;
+}
+
+.description {
+    text-align: justify;
+    width: 90%;
+}
